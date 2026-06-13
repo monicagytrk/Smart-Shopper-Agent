@@ -20,7 +20,6 @@ import sys
 import os
 from datetime import datetime, timezone
 
-# Tambahkan root project ke path agar import berjalan
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from pymongo import MongoClient, UpdateOne
@@ -32,8 +31,6 @@ from config.settings import settings
 from src.data.common_info_dataset import get_all_entries, CommonInfoEntry
 
 
-# ── Konfigurasi Logging ───────────────────────────────────────────────────────
-
 logger.remove()
 logger.add(
     sys.stdout,
@@ -41,8 +38,6 @@ logger.add(
     level=settings.agent.log_level,
 )
 
-
-# ── Helper Functions ──────────────────────────────────────────────────────────
 
 def build_embedding_text(entry: CommonInfoEntry) -> str:
     """
@@ -141,8 +136,6 @@ def upsert_documents(collection: Collection, documents: list[dict]) -> dict:
         "total_processed": len(documents),
     }
 
-
-# ── Main Pipeline ─────────────────────────────────────────────────────────────
 
 def store_common_info_to_mongodb() -> None:
     """
